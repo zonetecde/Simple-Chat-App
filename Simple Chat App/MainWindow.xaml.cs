@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static basic_chat_app.ClassLibrary;
 
 namespace basic_chat_app
 {
@@ -39,7 +41,7 @@ namespace basic_chat_app
             {
                 if(msg.MessageType == MESSAGE_TYPE.MESSAGE)
                     richTextBox_chat.AppendText("\n"+ msg.Id + " said : " + msg.Content);
-                else if(msg.MessageType == MESSAGE_TYPE.CONNECTION)
+                else if(msg.MessageType == MESSAGE_TYPE.APP_NAME_INFORMATION) // = nouvelle connexion
                 {
                     richTextBox_chat.AppendText("\n" + msg.Id + " a rejoins le chat");
                 }
@@ -60,7 +62,6 @@ namespace basic_chat_app
                 }
                 else
                 {
-
                     Socketer.Send(txtBox_sender.Text);
                     Receive(new Message(Socketer.ConnetionId, txtBox_sender.Text, Socketer.AppName, MESSAGE_TYPE.MESSAGE));
 
